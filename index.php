@@ -16,7 +16,7 @@ require("title.php");
 ?>
 
 <?php
-$result = pg_query($db, "SELECT books.name as book_name, books.units as units, authors.name as author_first_name, authors.last_name as author_last_name, category.name as category FROM books JOIN authors ON books.author = authors.author_id JOIN category ON books.category = category.category_id");
+$result = pg_query($db, "SELECT books.book_id as book_id, books.name as book_name, books.units as units, authors.name as author_first_name, authors.last_name as author_last_name, category.name as category FROM books JOIN authors ON books.author = authors.author_id JOIN category ON books.category = category.category_id");
 $rows = pg_fetch_all($result);
 ?>
 <h1>Books</h1>
@@ -27,12 +27,14 @@ $rows = pg_fetch_all($result);
     <th>Units available</th>
 	<?php
 	for ($i = 0; $i < count($rows); $i++) {
+        $result2 = pg_query_params($db, 'SELECT count(*) FROM borrows WHERE book_id = $1 AND actual_return_date IS null', array($rows[$i]['book_id']));
+        $counted = pg_fetch_all($result2)[0]['count'];
 		echo '<tr>';
 
 		echo '<td>' . $rows[$i]['book_name'] . '</td>';
 		echo '<td>' . $rows[$i]['author_first_name'] . ' ' . $rows[$i]['author_last_name'] . '</td>';
 		echo '<td>' . $rows[$i]['category'] . '</td>';
-		echo '<td>' . $rows[$i]['units'] . '</td>';
+		echo '<td>' . (intval($rows[$i]['units']) - $counted) . '</td>';
 
 		echo '</tr>';
 	}
