@@ -29,7 +29,7 @@ function validate_auth_key($session_id): bool
 	require('db.php');
 	/** @var \PgSql\Connection $db */
 	$result = pg_query_params($db, 'SELECT user_id FROM sessions WHERE session_id=$1', array($session_id));
-	if (!$result) {
+	if (pg_num_rows($result) == 0) {
 		return false;
 	} else {
 		return true;
