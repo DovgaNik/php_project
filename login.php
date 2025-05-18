@@ -33,6 +33,6 @@ if (isset($_POST['username'])) { // By checking where username var is set, we kn
 		echo("The password is empty <br>");
 		exit;
 	}
-	echo login($_POST['username'], $_POST['password']);
+	$session_id = login($_POST['username'], $_POST['password']);
 }
 ?>
