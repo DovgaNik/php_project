@@ -18,7 +18,10 @@ function gen_auth_key($user_id): string
 	/** @var \PgSql\Connection $db */
 	$result = pg_query_params($db, 'insert into sessions (user_id) values ($1) returning session_id', array($user_id));
 	$row = pg_fetch_all($result);
-	return $row[0]['session_id'];
+	$session_id = $row[0]['session_id'];
+	session_start();
+	$_SESSION['session_id'] = $session_id;
+	return $session_id;
 }
 
 function validate_auth_key($session_id): bool

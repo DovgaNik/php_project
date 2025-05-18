@@ -66,6 +66,6 @@ if (isset($_POST['username'])) { // By checking where username var is set, we kn
 			$_POST['last_name']
 		));
     $row = pg_fetch_assoc($result);
-    $session_id = gen_auth_key($row['user_id']);
+    gen_auth_key($row['user_id']);
 }
 ?>
