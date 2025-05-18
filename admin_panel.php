@@ -131,7 +131,7 @@ $rows = pg_fetch_all($result);
 		echo '<td>' . $rows[$i]['user_first_name'] . ' ' . $rows[$i]['user_last_name'] . '</td>';
 		echo '<td>' . $rows[$i]['borrow_date'] . '</td>';
 		echo '<td>' . $rows[$i]['return_date'] . '</td>';
-		echo '<td>' . $rows[$i]['actual_return'] . '</td>';
+		echo '<td>' . $rows[$i]['actual_return_date'] . '</td>';
 
 		echo '</tr>';
 	}
