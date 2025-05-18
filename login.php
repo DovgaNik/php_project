@@ -1,9 +1,20 @@
 <?php
-require("title.php");
-
 require('db.php');
 /** @var \PgSql\Connection $db */
 require('auth.php');
+
+session_start();
+if (validate_auth_key($_SESSION['session_id'])) {
+	if (check_admin($_SESSION['session_id'])) {
+		header('Location: admin_panel.php');
+		exit;
+	} else {
+		header('Location: index.php');
+		exit;
+	}
+}
+
+require("title.php");
 ?>
 
 <form action="login.php" method="post">
