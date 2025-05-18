@@ -8,6 +8,12 @@ if (!validate_auth_key($_SESSION['session_id'])) {
 	header('Location: login.php');
 	exit;
 }
+
+if (!check_admin($_SESSION['session_id'])) {
+	header('Location: index.php');
+	exit;
+}
+
 require('title.php');
 ?>
 

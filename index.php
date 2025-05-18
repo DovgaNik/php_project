@@ -9,8 +9,7 @@ if (!validate_auth_key($_SESSION['session_id'])) {
 	exit;
 }
 
-$result = pg_query_params($db, 'SELECT user_id FROM sessions WHERE session_id=$1', array($_SESSION['session_id']));
-$user_id = pg_fetch_all($result)[0]['user_id'];
+$user_id = get_user_id($_SESSION['session_id']);
 
 require("title.php");
 ?>

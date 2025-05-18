@@ -35,3 +35,19 @@ function validate_auth_key($session_id): bool
 		return true;
 	}
 }
+
+function get_user_id($session_id): string {
+	require('db.php');
+	/** @var \PgSql\Connection $db */
+	$result = pg_query_params($db, 'SELECT user_id FROM sessions WHERE session_id=$1', array($session_id));
+	return pg_fetch_all($result)[0]['user_id'];
+}
+
+function check_admin($session_id): bool {
+	require('db.php');
+	/** @var \PgSql\Connection $db */
+
+	$result = pg_query_params($db, 'SELECT is_admin::int FROM users WHERE user_id = $1', array(get_user_id($session_id)));
+	$rows = pg_fetch_all($result)[0]['is_admin'];
+	return (bool)$rows;
+}
