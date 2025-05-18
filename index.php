@@ -25,16 +25,30 @@ $rows = pg_fetch_all($result);
     <th>Author</th>
     <th>Category</th>
     <th>Units available</th>
+    <th>Lend</th>
 	<?php
 	for ($i = 0; $i < count($rows); $i++) {
         $result2 = pg_query_params($db, 'SELECT count(*) FROM borrows WHERE book_id = $1 AND actual_return_date IS null', array($rows[$i]['book_id']));
         $counted = pg_fetch_all($result2)[0]['count'];
+        $units_available = intval($rows[$i]['units']) - $counted;
 		echo '<tr>';
 
 		echo '<td>' . $rows[$i]['book_name'] . '</td>';
 		echo '<td>' . $rows[$i]['author_first_name'] . ' ' . $rows[$i]['author_last_name'] . '</td>';
 		echo '<td>' . $rows[$i]['category'] . '</td>';
-		echo '<td>' . (intval($rows[$i]['units']) - $counted) . '</td>';
+		echo '<td>' . $units_available . '</td>';
+
+        if ($units_available > 0) {
+	        echo '<td>' .
+		        '<form action="lend_book.php" method="post">
+                <input type="hidden" value="' . $user_id . '" name="user_id">
+                <input type="hidden" value="' . $rows[$i]['book_id'] . '" name="book_id">
+                <input type="submit" value="Lend">
+            </form>'
+		        . '</td>';
+
+	        echo '</tr>';
+        }
 
 		echo '</tr>';
 	}
