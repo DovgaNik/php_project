@@ -16,7 +16,7 @@ $result = pg_query($db, "SELECT * FROM users");
 $rows = pg_fetch_all($result);
 ?>
 <h1>Users</h1>
-<table>
+<table border=1>
     <th>Username</th>
     <th>Name</th>
 	<?php
@@ -24,7 +24,7 @@ $rows = pg_fetch_all($result);
 		echo '<tr>';
 
 		echo '<td>' . $rows[$i]['username'] . '</td>';
-		echo '<td>' . $rows[$i]['first_name'] . $rows[$i]['last_name'] . '</td>';
+		echo '<td>' . $rows[$i]['first_name'] . ' ' . $rows[$i]['last_name'] . '</td>';
 
 		echo '</tr>';
 	}
@@ -36,7 +36,7 @@ $result = pg_query($db, "SELECT * FROM category");
 $rows = pg_fetch_all($result);
 ?>
 <h1>Categories</h1>
-<table>
+<table border=1>
     <th>Category</th>
 	<?php
 	for ($i = 0; $i < count($rows); $i++) {
@@ -55,7 +55,7 @@ $result = pg_query($db, "SELECT * FROM authors");
 $rows = pg_fetch_all($result);
 ?>
 <h1>Authors</h1>
-<table>
+<table border=1>
     <th>Name</th>
     <th>Last name</th>
 	<?php
@@ -71,21 +71,23 @@ $rows = pg_fetch_all($result);
 </table>
 
 <?php
-$result = pg_query($db, "SELECT books.name as book_name, authors.name as author_first_name, authors.last_name as author_last_name, category.name as category FROM books JOIN authors ON books.author = authors.author_id JOIN category ON books.category = category.category_id");
+$result = pg_query($db, "SELECT books.name as book_name, books.units as units, authors.name as author_first_name, authors.last_name as author_last_name, category.name as category FROM books JOIN authors ON books.author = authors.author_id JOIN category ON books.category = category.category_id");
 $rows = pg_fetch_all($result);
 ?>
 <h1>Books</h1>
-<table>
+<table border=1>
     <th>Name</th>
     <th>Author</th>
     <th>Category</th>
+    <th>Units available</th>
 	<?php
 	for ($i = 0; $i < count($rows); $i++) {
 		echo '<tr>';
 
 		echo '<td>' . $rows[$i]['book_name'] . '</td>';
-		echo '<td>' . $rows[$i]['author_first_name'] . $rows[$i]['author_last_name'] . '</td>';
+		echo '<td>' . $rows[$i]['author_first_name'] . ' ' . $rows[$i]['author_last_name'] . '</td>';
 		echo '<td>' . $rows[$i]['category'] . '</td>';
+		echo '<td>' . $rows[$i]['units'] . '</td>';
 
 		echo '</tr>';
 	}
@@ -98,7 +100,7 @@ $result = pg_query($db,
        a.name       as author_first_name,
        a.last_name  as author_last_name,
        c.name       as category,
-       u.first_name as user_fist_name,
+       u.first_name as user_first_name,
        u.last_name as user_last_name,
        borrow_date,
        return_date,
@@ -111,7 +113,7 @@ FROM borrows
 $rows = pg_fetch_all($result);
 ?>
 <h1>Borrows</h1>
-<table>
+<table border=1>
     <th>Book name</th>
     <th>Author</th>
     <th>Category</th>
@@ -124,9 +126,9 @@ $rows = pg_fetch_all($result);
 		echo '<tr>';
 
 		echo '<td>' . $rows[$i]['book_name'] . '</td>';
-		echo '<td>' . $rows[$i]['author_first_name'] . $rows[$i]['author_last_name'] . '</td>';
+		echo '<td>' . $rows[$i]['author_first_name'] . ' ' . $rows[$i]['author_last_name'] . '</td>';
 		echo '<td>' . $rows[$i]['category'] . '</td>';
-		echo '<td>' . $rows[$i]['user_first_name'] . $rows[$i]['user_last_name'] . '</td>';
+		echo '<td>' . $rows[$i]['user_first_name'] . ' ' . $rows[$i]['user_last_name'] . '</td>';
 		echo '<td>' . $rows[$i]['borrow_date'] . '</td>';
 		echo '<td>' . $rows[$i]['return_date'] . '</td>';
 		echo '<td>' . $rows[$i]['actual_return'] . '</td>';
