@@ -45,5 +45,6 @@ if (isset($_POST['username'])) { // By checking where username var is set, we kn
 		exit;
 	}
 	login($_POST['username'], $_POST['password']);
+	header("Refresh: 0");
 }
 ?>

@@ -2,7 +2,9 @@
 <h2>Project, for the class of Advanced Web Programming</h2>
 <h3>Student: Nikita Dovhan</h3>
 <h3>Scientific Coordinator: Alexandru Enaceanu</h3>
-<a href="https://github.com/DovgaNik/php_project">Link to the project's source code</a>
+<a href="https://github.com/DovgaNik/php_project">Link to the project's source code</a> <br>
+<a href="index.php">index</a><br>
+<a href="admin_panel.php">admin panel</a><br>
 
 <form action="logout.php" method="post">
     <input type="submit" value="Log out">

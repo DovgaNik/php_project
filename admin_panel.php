@@ -41,7 +41,7 @@ $rows = pg_fetch_all($result);
 $result = pg_query($db, "SELECT * FROM category");
 $rows = pg_fetch_all($result);
 ?>
-<h1>Categories</h1>
+<h1><a href="categories.php">Categories</a></h1>
 <table border=1>
     <th>Category</th>
 	<?php
@@ -60,7 +60,7 @@ $rows = pg_fetch_all($result);
 $result = pg_query($db, "SELECT * FROM authors");
 $rows = pg_fetch_all($result);
 ?>
-<h1>Authors</h1>
+<h1><a href="authors.php">Authors</a></h1>
 <table border=1>
     <th>Name</th>
     <th>Last name</th>
@@ -80,7 +80,7 @@ $rows = pg_fetch_all($result);
 $result = pg_query($db, "SELECT books.name as book_name, books.units as units, authors.name as author_first_name, authors.last_name as author_last_name, category.name as category FROM books JOIN authors ON books.author = authors.author_id JOIN category ON books.category = category.category_id");
 $rows = pg_fetch_all($result);
 ?>
-<h1>Books</h1>
+<h1><a href="books.php">Books</a></h1>
 <table border=1>
     <th>Name</th>
     <th>Author</th>
