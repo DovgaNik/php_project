@@ -65,6 +65,5 @@ if (isset($_POST['username'])) { // By checking where username var is set, we kn
 			$_POST['first_name'],
 			$_POST['last_name']
 		));
-    pg_query($db, 'commit');
 }
 ?>
